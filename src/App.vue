@@ -1,15 +1,19 @@
 <template>
-  <h1>Rakutan Travel Xcahnge</h1>
-  <div v-for="(result, idx) in results" :key="idx">
-    {{ result.property.name }}
+  <div class="max-w-full bg-light-grey min-h-screen font-mulish">
+    <Header/>
+    <SearchBar/>
   </div>
+ 
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, reactive, toRefs } from "vue";
+import Header from "./components/Header.vue";
+import SearchBar from "./components/SearchBar.vue";
 import { useApiService } from "./services";
 
 export default defineComponent({
+  components: { Header, SearchBar },
   setup() {
     const apiService = useApiService();
 
@@ -17,7 +21,7 @@ export default defineComponent({
       results: computed(()=> apiService.getResult)
     })
 
-    onMounted(()=> apiService.getData('sgsg'));
+    // onMounted(()=> apiService.getData('sgsg'));
 
     return{
       ...toRefs(state)
