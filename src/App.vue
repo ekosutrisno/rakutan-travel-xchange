@@ -4,27 +4,30 @@
     <SearchBar/>
     <div class="grid grid-cols-12 max-w-7xl mx-auto p-[15px]">
         <Sidebar/>
-        <div class="col-span-9 bg-blue-2"> RIght</div>
+        <Main/>
     </div>
   </div>
  
 </template>
 
 <script lang="ts">
-import { computed, defineComponent,reactive, toRefs } from "vue";
+import { computed, defineComponent,onMounted,reactive, toRefs } from "vue";
 import { useApiService } from "./services";
 import Header from "./components/Header.vue";
 import SearchBar from "./components/SearchBar.vue";
 import Sidebar from "./components/Sidebar.vue";
+import Main from "./components/Main.vue";
 
 export default defineComponent({
-  components: { Header, SearchBar, Sidebar},
+  components: { Header, SearchBar, Sidebar, Main},
   setup() {
     const apiService = useApiService();
 
     const state = reactive({
       results: computed(()=> apiService.getResult)
     })
+
+    onMounted(()=> apiService.getData('sgsg'))
 
     return{
       ...toRefs(state)
