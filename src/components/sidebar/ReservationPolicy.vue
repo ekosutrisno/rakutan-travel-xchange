@@ -5,8 +5,14 @@
         </div>
         <div v-for="policy in reservationPoliciesData" :key="policy.text" class="flex items-center justify-between w-full text-[12px]">
             <div class="inline-flex items-center space-x-2">
-                <input type="checkbox" :value="policy.value" v-model="policy.value" :checked="policy.value" class="text-[12px] rounded-[3px] border-line">
-                <span> {{ policy.text }} </span>
+                <input
+                    :id="policy.text" 
+                    type="checkbox"
+                    v-model="policy.value" 
+                    :checked="policy.value" 
+                    class="text-[12px] rounded-[3px] border-line"
+                >
+                <label :for="policy.text"> {{ policy.text }} </label>
             </div>            
             <p class="text-placeholder"> {{ policy.score }} </p>
         </div>

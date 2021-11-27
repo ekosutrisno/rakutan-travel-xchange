@@ -5,8 +5,14 @@
         </div>
         <div v-for="property in propertyTypeData" :key="property.text" class="flex items-center justify-between w-full text-[12px]">
             <div class="inline-flex items-center space-x-2">
-                <input type="checkbox" :value="property.value" v-model="property.value" :checked="property.value" class="text-[12px] rounded-[3px] border-line">
-                <span> {{ property.text }} </span>
+                <input
+                    :id="property.text"
+                    type="checkbox"
+                    v-model="property.value" 
+                    :checked="property.value" 
+                    class="text-[12px] rounded-[3px] border-line"
+                >
+                <label :for="property.text"> {{ property.text }} </label>
             </div>            
             <p class="text-placeholder"> {{ property.score }} </p>
         </div>
