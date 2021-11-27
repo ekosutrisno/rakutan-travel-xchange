@@ -195,3 +195,10 @@ export interface ErrorResponse {
     resolveActions: any;
 }
 
+
+// Extend
+export interface FilterData {
+    value: boolean;
+    text: string;
+    score: number;
+}
