@@ -6,6 +6,7 @@
         <Sidebar/>
         <Main/>
     </div>
+    <Footer/>
   </div>
  
 </template>
@@ -17,9 +18,10 @@ import Header from "./components/Header.vue";
 import SearchBar from "./components/SearchBar.vue";
 import Sidebar from "./components/Sidebar.vue";
 import Main from "./components/Main.vue";
+import Footer from "./components/Footer.vue";
 
 export default defineComponent({
-  components: { Header, SearchBar, Sidebar, Main},
+  components: { Header, SearchBar, Sidebar, Main, Footer},
   setup() {
     const apiService = useApiService();
 
