@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-full bg-light-grey min-h-screen font-mulish">
+  <div class="container bg-light-grey min-h-screen font-mulish">
     <Header/>
     <SearchBar/>
     <div class="grid grid-cols-12 max-w-7xl mx-auto p-[15px]">
@@ -29,7 +29,7 @@ export default defineComponent({
       results: computed(()=> apiService.getResult)
     })
 
-    onMounted(()=> apiService.getData('sgsg'))
+    // onMounted(()=> apiService.getData('sgsg'))
 
     return{
       ...toRefs(state)

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from 'axios';
 import { DataResponse, ErrorResponse, Result } from '../@types/model.inteface';
+import exampleData from '../assets/example.json';
 
 interface ApiServiceState {
     dataResponse: DataResponse | null;
@@ -9,7 +10,7 @@ interface ApiServiceState {
 
 export const useApiService = defineStore('useApiService', {
     state: (): ApiServiceState => ({
-        dataResponse: null,
+        dataResponse: exampleData as DataResponse,
         errorResponse: null
     }),
 
