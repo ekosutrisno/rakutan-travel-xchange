@@ -29,7 +29,7 @@ export default defineComponent({
       results: computed(()=> apiService.getResult)
     })
 
-    // onMounted(()=> apiService.getData('sgsg'))
+    // onMounted(()=> apiService.getData('ssss')) 
 
     return{
       ...toRefs(state)

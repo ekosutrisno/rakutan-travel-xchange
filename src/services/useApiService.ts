@@ -1,17 +1,18 @@
 import { defineStore } from 'pinia'
-import axios from 'axios';
 import { DataResponse, ErrorResponse, Result } from '../@types/model.inteface';
 import exampleData from '../assets/example.json';
 
 interface ApiServiceState {
     dataResponse: DataResponse | null;
     errorResponse: ErrorResponse | null;
+    loading: boolean;
 }
 
 export const useApiService = defineStore('useApiService', {
     state: (): ApiServiceState => ({
-        dataResponse: exampleData as DataResponse,
-        errorResponse: null
+        dataResponse: null,
+        errorResponse: null,
+        loading: false
     }),
 
     actions: {
@@ -21,14 +22,27 @@ export const useApiService = defineStore('useApiService', {
          * This method handle get data
          */
         getData(cityCode: string) {
-            axios.get(`api/job01/search/${cityCode}`)
+            // Init loading state
+            this.loading = true;
+
+            fetch(`api/job01/search/${cityCode}`)
+                .then(res => res.json())
                 .then(response => {
-                    if (response.data.status == 400)
-                        this.errorResponse = response.data as ErrorResponse;
-                    else
-                        this.dataResponse = response.data as DataResponse;
+                    if (response.status == 400 || response.message) {
+                        this.errorResponse = response as ErrorResponse;
+                        this.dataResponse = null; //Clear state cache
+                        this.loading = false;
+                    } else {
+                        this.dataResponse = response as DataResponse;
+                        this.errorResponse = null; //Clear state cache
+                        this.loading = false;
+                    }
+                }).catch(() => {
+                    this.loading = false;
                 })
-                .catch(error => console.log(error));
+                .finally(() =>
+                    this.loading = false
+                );
         }
 
     },

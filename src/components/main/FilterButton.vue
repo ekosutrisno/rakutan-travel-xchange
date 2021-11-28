@@ -1,6 +1,6 @@
 <template>
 <div class="mb-4">
-    <h3 class="text-base font-bold">Singapore: 9999 properties found</h3>
+    <h3 class="text-base font-bold">Singapore: {{ resultLength }} properties found</h3>
     <div class="grid grid-cols-4 h-[44px] mt-[15px] rounded-[5px] bg-white overflow-hidden">
         <button class="btn-filter col-span-1 bg-blue-1 font-bold text-white">
             Popularity
@@ -24,13 +24,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
+import { useApiService } from '../../services'
 
 export default defineComponent({
     setup () {
-        
-
-        return {}
+        const apiService = useApiService()
+        return {
+            resultLength: computed(()=> apiService.getResult.length)
+        }
     }
 })
 </script>

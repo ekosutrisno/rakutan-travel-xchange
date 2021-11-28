@@ -1,5 +1,5 @@
 <template>
-    <div class="h-[70px] text-[14px] text-white bg-black-2 flex items-center justify-center space-x-10">
+    <div :class="[!resultSize ? 'lg:mt-[148px]': '']" class="h-[70px] text-[14px] text-white bg-black-2 flex items-center justify-center space-x-10">
         <a href="#">FAQ</a>
         <a href="#">Terms of use</a>
         <a href="#">Privacy policy</a>
@@ -11,13 +11,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent, reactive, toRefs } from 'vue'
+import { useApiService } from '../services'
 
 export default defineComponent({
     setup () {
+        const apiService = useApiService();
+        const state = reactive({
+            resultSize: computed(()=> apiService.getResult.length)
+        })
         
-
-        return {}
+        return {
+            ...toRefs(state)
+        }
     }
 })
 </script>
