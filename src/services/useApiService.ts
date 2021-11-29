@@ -10,6 +10,7 @@ interface ApiServiceState {
 
 export const useApiService = defineStore('useApiService', {
     state: (): ApiServiceState => ({
+        // dataResponse: null,
         dataResponse: exampleData as DataResponse,
         errorResponse: null,
         loading: false

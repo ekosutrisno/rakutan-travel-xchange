@@ -80,7 +80,7 @@ export default defineComponent({
         const scrollToPageUp = () => {
             if(pageTop != null)
                 pageTop.value.scrollIntoView({behavior: 'smooth'});
-      }
+        }
 
         return {
             ...toRefs(state),
