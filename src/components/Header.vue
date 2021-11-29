@@ -1,12 +1,19 @@
 <template>
-    <div class="w-full bg-white h-[60.93px] p-2">
+    <div class="w-full bg-white h-[60px] p-4 md:p-2">
         <div class="flex items-center justify-between max-w-7xl mx-auto">
-            <img class="h-[35px]" src="/cloudtravel-logo.jpg" alt="cloudtravel-logo">
-            <div class="inline-flex items-center space-x-4">
+            <img class="h-[25px] md:h-[35px]" src="/cloudtravel-logo.jpg" alt="cloudtravel-logo">
+            <div class="md:inline-flex items-center space-x-4 hidden">
                 <button type="button" class="hover:text-blue-2 text-[16px] transition-colors">English</button>
                 <button type="button" class="hover:text-blue-2 text-[16px] transition-colors">USD</button>
                 <button type="button" class="hover:text-blue-2 text-[16px] transition-colors">My Account</button>
                 <button type="button" class="hover:text-blue-2 text-[16px] transition-colors">Logout</button>
+            </div>
+            <div class="md:hidden">
+                <button type="button">
+                    <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <path d="M19.1875 0.75H0.8125C0.709375 0.75 0.625 0.834375 0.625 0.9375V2.4375C0.625 2.54062 0.709375 2.625 0.8125 2.625H19.1875C19.2906 2.625 19.375 2.54062 19.375 2.4375V0.9375C19.375 0.834375 19.2906 0.75 19.1875 0.75ZM19.1875 15.375H0.8125C0.709375 15.375 0.625 15.4594 0.625 15.5625V17.0625C0.625 17.1656 0.709375 17.25 0.8125 17.25H19.1875C19.2906 17.25 19.375 17.1656 19.375 17.0625V15.5625C19.375 15.4594 19.2906 15.375 19.1875 15.375ZM19.1875 8.0625H0.8125C0.709375 8.0625 0.625 8.14687 0.625 8.25V9.75C0.625 9.85312 0.709375 9.9375 0.8125 9.9375H19.1875C19.2906 9.9375 19.375 9.85312 19.375 9.75V8.25C19.375 8.14687 19.2906 8.0625 19.1875 8.0625Z" fill="#757575"/>
+                    </svg>
+                </button>
             </div>
         </div>
     </div>

@@ -10,7 +10,7 @@
             
             <!-- Placeholder session when loading fetch api -->
             <div v-if="loading">
-                <PropertyCardPlaceholder v-for="idx in 2" :key="idx" />
+                <PropertyCardPlaceholder v-for="idx in 3" :key="idx" />
             </div>
         
             <!-- Property Card -->
