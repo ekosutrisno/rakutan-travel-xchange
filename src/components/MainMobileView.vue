@@ -2,6 +2,7 @@
 <!-- Point to back to top -->
 <div ref="pageTop" class="absolute top-0"></div>
 
+<!-- Main Content -->
 <div class="flex-1">
     <div class="p-4">
         <button 
@@ -63,18 +64,19 @@
         </div>
         <PaginationBar/>
     </div>
-    </div>
+ </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, reactive, ref, toRefs } from 'vue'
 import { useApiService } from '../services';
+import FilterMobileView from './FilterMobileView.vue';
 import PaginationBar from './main/PaginationBar.vue';
 import PropertyCardPlaceholderSmall from './main/PropertyCardPlaceholderSmall.vue';
 import PropertyCardSmall from './main/PropertyCardSmall.vue';
 
 export default defineComponent({
-  components: { PropertyCardSmall, PaginationBar, PropertyCardPlaceholderSmall },
+  components: { PropertyCardSmall, PaginationBar, PropertyCardPlaceholderSmall, FilterMobileView },
   setup() {
     const apiService = useApiService();
 

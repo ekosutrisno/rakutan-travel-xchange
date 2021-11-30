@@ -1,5 +1,5 @@
 <template>
-    <div class="h-[142px] w-[290px] rounded-[5px] p-[20px] bg-white flex flex-col justify-between">
+    <div class="h-[142px] md:w-[290px] rounded-[5px] p-[20px] bg-white flex flex-col justify-between">
         <div class="flex items-center justify-between">
             <p class="font-semibold text-[14px]">Price per night</p>
             <button type="button" class="font-bold text-blue-1 text-[12px]">CLEAR</button>

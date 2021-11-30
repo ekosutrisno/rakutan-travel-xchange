@@ -10,6 +10,7 @@
     "@headlessui/vue": "^1.4.2",
     "@heroicons/vue": "^1.0.5",
     "@tailwindcss/forms": "^0.3.4",
+    "@vueuse/core": "^7.1.2",
     "pinia": "^2.0.4",
     "vue": "^3.2.16"
   },

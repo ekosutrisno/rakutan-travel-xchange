@@ -1,5 +1,5 @@
 <template>
-    <div class="h-[105px] w-[290px] rounded-[5px] p-[20px] bg-white flex flex-col justify-between">
+    <div class="h-[105px] md:w-[290px] rounded-[5px] p-[20px] bg-white flex flex-col justify-between">
         <div class="flex items-center justify-between">
             <p class="font-semibold text-[14px]">Hotel name</p>
         </div>

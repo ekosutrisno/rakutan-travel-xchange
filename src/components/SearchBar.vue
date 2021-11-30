@@ -8,7 +8,7 @@
                 </svg>
                 <input 
                     type="search"
-                    v-model="city.label"
+                    v-model="cityQuery.label"
                     @input="showSuggestedToggle"
                     @keydown.enter="getAutoSuggest" 
                     class="h-[50px] py-[10px] w-[470px] pb-[15px] pl-[34.95px] pr-[18.08px] rounded-[3px] text-[14px] placeholder-placeholder"
@@ -19,7 +19,7 @@
                     leave-from-class="opacity-100"
                     leave-to-class="opacity-0"
                 >
-                <div v-if="showSuggested && autoSuggest.length" class="h-auto w-full shadow-lg absolute rounded-[3px] text-[14px] text-black-2 bg-white mt-[2px] overflow-hidden">
+                <div ref="target" v-if="showSuggested && autoSuggest.length" class="h-auto w-full shadow-lg absolute rounded-[3px] text-[14px] text-black-2 bg-white mt-[2px] overflow-hidden">
                     <ul>
                         <li v-for="city in autoSuggest" :key="city.cityCode">
                             <button 
@@ -65,6 +65,8 @@
 
     <!-- Sm / mobile view -->
     <div class="w-full md:hidden">
+        <FilterMobileView v-if="onFilter" @close="onFilterToggle"/>
+
         <!-- Search Info -->
         <div class="p-4 space-x-[14px] bg-white h-[50px] border-t border-b border-line flex items-center">
             <div>
@@ -83,7 +85,7 @@
 
         <!-- Filter and Map view button -->
         <div class="bg-white h-[50px] grid grid-cols-2 divide-x divide-line">
-            <button type="button" class="inline-flex h-full items-center justify-center space-x-[10px] text-[14px] text-blue-1">
+            <button @click="onFilterToggle" type="button" class="inline-flex h-full items-center justify-center space-x-[10px] text-[14px] text-blue-1">
                 <svg width="18" height="16" aria-hidden="true" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M2.66667 7.33333C4.13943 7.33333 5.33333 6.13943 5.33333 4.66667C5.33333 3.19391 4.13943 2 2.66667 2C1.19391 2 0 3.19391 0 4.66667C0 6.13943 1.19391 7.33333 2.66667 7.33333ZM2.66667 6C3.40305 6 4 5.40305 4 4.66667C4 3.93029 3.40305 3.33333 2.66667 3.33333C1.93029 3.33333 1.33333 3.93029 1.33333 4.66667C1.33333 5.40305 1.93029 6 2.66667 6Z" fill="#002D63"/>
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M2.66667 0C2.29848 0 2 0.298477 2 0.666667V3.51171C2.19612 3.39826 2.42381 3.33333 2.66667 3.33333C2.90952 3.33333 3.13722 3.39826 3.33333 3.51171V0.666667C3.33333 0.298477 3.03486 0 2.66667 0ZM3.33333 5.82162C3.13722 5.93507 2.90952 6 2.66667 6C2.42381 6 2.19612 5.93507 2 5.82162V15.3333C2 15.7015 2.29848 16 2.66667 16C3.03486 16 3.33333 15.7015 3.33333 15.3333V5.82162Z" fill="#002D63"/>
@@ -105,11 +107,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs } from 'vue'
+import { computed, defineComponent, reactive, ref, toRefs } from 'vue'
 import { City } from '../@types/model.inteface';
 import { useApiService } from '../services'
+import { onClickOutside } from '@vueuse/core';
+import FilterMobileView from './FilterMobileView.vue';
 
 export default defineComponent({
+  components: { FilterMobileView },
     setup () {
         const apiService = useApiService();
         const state = reactive({
@@ -117,18 +122,25 @@ export default defineComponent({
             showSuggested: false,
             info: '2 adults, 0 children, 1 room',
             dateRange: 'Jul 19  –  Jul 20',
-            city:{
-                label: '',
-                cityCode: ''
-            } as City
+            cityQuery:{label: '',cityCode: ''} as City,
+            onFilter: false
         })
 
+        const target = ref(null)
+
+        onClickOutside(target, () => { state.showSuggested = false})
+
         const onSearch = ()=> {
-            apiService.getProperty(state.city.cityCode);
+            apiService.getProperty(state.cityQuery.cityCode);
+        }
+
+        const onFilterToggle = ()=>{
+            state.onFilter = !state.onFilter;
         }
 
         const onSelectCity = (city: City) => {
-            state.city = city;
+            state.cityQuery.label = city.label;
+            state.cityQuery.cityCode = city.cityCode;
             state.showSuggested = false;
         }
 
@@ -141,16 +153,14 @@ export default defineComponent({
         }
 
         return {
+            target,
             ...toRefs(state),
             onSearch,
             onSelectCity,
+            onFilterToggle,
             getAutoSuggest,
             showSuggestedToggle
         }
     }
 })
 </script>
-
-<style scoped>
-
-</style>
