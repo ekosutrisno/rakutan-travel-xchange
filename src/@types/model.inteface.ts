@@ -72,6 +72,7 @@ export interface Package {
     totalAmount:           null;
     rakutenPoint:          number;
     payAtHotel:            boolean;
+    payLater:              boolean;
 }
 
 export interface Property{

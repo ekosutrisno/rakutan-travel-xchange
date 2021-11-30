@@ -58,7 +58,7 @@
                 <input type="text" v-model="info" class="h-[50px] lg:w-[250px] py-[10px] pb-[15px] pl-[17px] pr-[18.08px] rounded-[3px] text-[14px]">
             </div>
             <div class="relative">
-                <button type="button" @click="onSearch" class="w-[150px] h-[50px] rounded-[3px] p-[10px] bg-blue-2 text-white font-semibold">Search</button>
+                <button type="button" @click="onSearchAction" class="w-[150px] h-[50px] rounded-[3px] p-[10px] bg-blue-2 text-white font-semibold">Search</button>
             </div>
         </div>
     </div>
@@ -66,22 +66,23 @@
     <!-- Sm / mobile view -->
     <div class="w-full md:hidden">
         <FilterMobileView v-if="onFilter" @close="onFilterToggle"/>
+        <SearchMobileView v-if="onSearch" @close="onSearchToggle"/>
 
         <!-- Search Info -->
-        <div class="p-4 space-x-[14px] bg-white h-[50px] border-t border-b border-line flex items-center">
+        <button type="button" @click="onSearchToggle" class="w-full p-4 space-x-[14px] bg-white hover:bg-light-grey h-[50px] border-t border-b border-line inline-flex items-center ">
             <div>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M14.8564 14.5735L11.1375 10.6129C12.0937 9.449 12.6176 7.98455 12.6176 6.45999C12.6176 2.89801 9.78739 0 6.30878 0C2.83017 0 0 2.89801 0 6.45999C0 10.022 2.83017 12.92 6.30878 12.92C7.6147 12.92 8.85917 12.5167 9.92316 11.751L13.6703 15.7416C13.8269 15.9082 14.0376 16 14.2633 16C14.477 16 14.6797 15.9166 14.8336 15.7649C15.1606 15.4428 15.171 14.9085 14.8564 14.5735ZM6.30878 1.68522C8.88002 1.68522 10.9718 3.82712 10.9718 6.45999C10.9718 9.09286 8.88002 11.2348 6.30878 11.2348C3.73754 11.2348 1.64577 9.09286 1.64577 6.45999C1.64577 3.82712 3.73754 1.68522 6.30878 1.68522Z" fill="#757575"/>
                 </svg>
             </div>
-            <div>
+            <div class="text-left">
                 <h4 class="text-[14px] font-bold">Singapore, Singapore</h4>
                 <p class="text-[12px] text-black-2">
                     <span class="mr-[20px]">Aug 18 - Aug 19</span>
                     <span>2 adults, 1 room, 0 children</span>
                 </p>
             </div>
-        </div>
+        </button>
 
         <!-- Filter and Map view button -->
         <div class="bg-white h-[50px] grid grid-cols-2 divide-x divide-line">
@@ -112,9 +113,10 @@ import { City } from '../@types/model.inteface';
 import { useApiService } from '../services'
 import { onClickOutside } from '@vueuse/core';
 import FilterMobileView from './FilterMobileView.vue';
+import SearchMobileView from './SearchMobileView.vue';
 
 export default defineComponent({
-  components: { FilterMobileView },
+  components: { FilterMobileView, SearchMobileView },
     setup () {
         const apiService = useApiService();
         const state = reactive({
@@ -123,19 +125,23 @@ export default defineComponent({
             info: '2 adults, 0 children, 1 room',
             dateRange: 'Jul 19  –  Jul 20',
             cityQuery:{label: '',cityCode: ''} as City,
-            onFilter: false
+            onFilter: false,
+            onSearch: false
         })
 
         const target = ref(null)
 
         onClickOutside(target, () => { state.showSuggested = false})
 
-        const onSearch = ()=> {
+        const onSearchAction = ()=> {
             apiService.getProperty(state.cityQuery.cityCode);
         }
 
         const onFilterToggle = ()=>{
             state.onFilter = !state.onFilter;
+        }
+        const onSearchToggle = ()=>{
+            state.onSearch = !state.onSearch;
         }
 
         const onSelectCity = (city: City) => {
@@ -155,9 +161,10 @@ export default defineComponent({
         return {
             target,
             ...toRefs(state),
-            onSearch,
+            onSearchAction,
             onSelectCity,
             onFilterToggle,
+            onSearchToggle,
             getAutoSuggest,
             showSuggestedToggle
         }

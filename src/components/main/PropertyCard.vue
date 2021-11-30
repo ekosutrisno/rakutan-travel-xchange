@@ -41,12 +41,18 @@
                     }} 
                 </p>
                 <div class="inline-flex items-center w-full space-x-[5px] mt-[11px] mb-[13px]">
-                    <button class="w-auto py-0 px-[5px] h-[20px] text-[12px] border border-blue-2 text-blue-2">
+                    <p class="w-auto py-0 px-[5px] h-[20px] text-[12px] border border-blue-2 text-blue-2">
                         Breakfast
-                    </button>
-                    <button class="w-auto py-0 px-[5px] h-[20px] text-[12px] border border-blue-2 text-blue-2">
+                    </p>
+                    <p v-if="result.packages[0].nonRefundable" class="w-auto py-0 px-[5px] h-[20px] text-[12px] border border-blue-2 text-blue-2">
                         Free cancellation
-                    </button>
+                    </p>
+                    <p v-if="result.packages[0].payAtHotel" class="w-auto py-0 px-[5px] h-[20px] text-[12px] border border-blue-2 text-blue-2">
+                        Pay at hotel
+                    </p>
+                    <p v-if="result.packages[0].payLater" class="w-auto py-0 px-[5px] h-[20px] text-[12px] border border-blue-2 text-blue-2">
+                        Pay later
+                    </p>
                 </div>
                 <div class="inline-flex items-center space-x-[11px] text-[12px]">
                     <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">

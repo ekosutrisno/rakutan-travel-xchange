@@ -4,6 +4,7 @@
     <div class="flex-none">
       <Header/>
       <SearchBar/>
+      
       <!-- Md+ view -->
       <div class="hidden md:grid grid-cols-12 max-w-7xl mx-auto p-[15px]">
           <Sidebar/>
@@ -45,7 +46,11 @@ export default defineComponent({
       results: computed(()=> apiService.getResult)
     })
 
-    // onMounted(()=> apiService.getProperty('klmy')) 
+    // This will get initial default data
+    onMounted(()=> {
+      apiService.getProperty('sgsg');
+      apiService.getAutoSuggest();
+    })
 
     return{
       ...toRefs(state)
