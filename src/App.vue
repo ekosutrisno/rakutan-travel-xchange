@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex flex-col bg-light-grey min-h-screen font-mulish">
+  <div class="container mx-auto flex flex-col bg-light-grey min-h-screen font-mulish">
     
     <div class="flex-none">
       <Header/>
@@ -45,7 +45,7 @@ export default defineComponent({
       results: computed(()=> apiService.getResult)
     })
 
-    // onMounted(()=> apiService.getData('klmy')) 
+    // onMounted(()=> apiService.getProperty('klmy')) 
 
     return{
       ...toRefs(state)

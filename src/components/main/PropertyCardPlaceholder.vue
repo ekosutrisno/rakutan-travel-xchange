@@ -1,5 +1,5 @@
 <template>
- <div class="ph-item" style="background: transparent; border-radius: 5px">
+ <div class="ph-item" style="background: transparent; border: none; padding: 0;">
      <div class="ph-col-2">
          <div class="ph-picture" style="height:210px; width: 200px"></div>
      </div>

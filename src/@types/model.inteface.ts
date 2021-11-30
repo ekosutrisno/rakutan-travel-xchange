@@ -198,7 +198,12 @@ export interface ErrorResponse {
 
 // Extend
 export interface FilterData {
-    value: boolean;
-    text: string;
-    score: number;
+    value:  boolean;
+    text:   string;
+    score:  number;
+}
+
+export interface City {
+    label:    string;
+    cityCode: string;
 }

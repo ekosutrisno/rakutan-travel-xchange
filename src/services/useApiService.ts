@@ -1,18 +1,20 @@
 import { defineStore } from 'pinia'
-import { DataResponse, ErrorResponse, Result } from '../@types/model.inteface';
+import { City, DataResponse, ErrorResponse, Result } from '../@types/model.inteface';
 import exampleData from '../assets/example.json';
 
 interface ApiServiceState {
     dataResponse: DataResponse | null;
     errorResponse: ErrorResponse | null;
+    autoSuggest: City[];
     loading: boolean;
 }
 
 export const useApiService = defineStore('useApiService', {
     state: (): ApiServiceState => ({
-        // dataResponse: null,
-        dataResponse: exampleData as DataResponse,
+        dataResponse: null,
+        // dataResponse: exampleData as DataResponse,
         errorResponse: null,
+        autoSuggest: [],
         loading: false
     }),
 
@@ -22,7 +24,7 @@ export const useApiService = defineStore('useApiService', {
          * @param  {string} cityCode
          * This method handle get data
          */
-        getData(cityCode: string) {
+        getProperty(cityCode: string) {
             // Init loading state
             this.loading = true;
 
@@ -31,11 +33,11 @@ export const useApiService = defineStore('useApiService', {
                 .then(response => {
                     if (response.status == 400 || response.message) {
                         this.errorResponse = response as ErrorResponse;
-                        this.dataResponse = null; //Clear state cache
+                        this.dataResponse = null; //Reset value
                         this.loading = false;
                     } else {
                         this.dataResponse = response as DataResponse;
-                        this.errorResponse = null; //Clear state cache
+                        this.errorResponse = null; //Reset value
                         this.loading = false;
                     }
                 }).catch(() => {
@@ -44,6 +46,16 @@ export const useApiService = defineStore('useApiService', {
                 .finally(() =>
                     this.loading = false
                 );
+        },
+
+        getAutoSuggest() {
+            fetch(`api/job01/autosuggest`)
+                .then(res => res.json())
+                .then(response => {
+                    this.autoSuggest = []; // Reset value
+                    this.autoSuggest = response as City[];
+                })
+                .catch(err => console.log(err))
         }
 
     },
