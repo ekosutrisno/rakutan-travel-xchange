@@ -1,5 +1,5 @@
 <template>
- <div class="h-auto flex bg-white hover:shadow-md transition-shadow">
+ <div class="card-property-sm">
     <div class="w-[100px] flex-none flex-shrink-0">
         <div class="flex flex-col w-[100px] h-full overflow-hidden">
             <img :src="result.property.heroImage.url" alt="hero-image" class="object-cover h-full w-full">

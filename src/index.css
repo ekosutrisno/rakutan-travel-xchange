@@ -8,5 +8,25 @@
         .btn-filter{
             @apply py-[12px] h-[44px] text-[14px] hover:font-bold font-normal transition-colors;
         }
+
+        .card-property{
+            @apply p-[10px] h-[230px] rounded-[5px] flex gap-2 bg-white hover:shadow-md transition-shadow;
+        }
+
+        .card-property-sm{
+            @apply h-auto flex bg-white hover:shadow-md transition-shadow;
+        }
+
+        .card-property-label-wrapper{
+            @apply inline-flex items-center w-full space-x-[5px] mt-[11px] mb-[13px];
+        }
+
+        .card-property-label{
+            @apply w-auto py-0 px-[5px] h-[20px] text-[12px] border border-blue-2 text-blue-2;
+        }
+
+        .sidebar-card{
+            @apply h-auto md:w-[290px] rounded-[5px] p-[20px] bg-white flex flex-col space-y-4;
+        }
     }
 }

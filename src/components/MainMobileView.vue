@@ -68,7 +68,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, reactive, ref, toRefs } from 'vue'
+import { computed, defineComponent, reactive, ref, toRefs } from 'vue'
 import { useApiService } from '../services';
 import FilterMobileView from './FilterMobileView.vue';
 import PaginationBar from './main/PaginationBar.vue';

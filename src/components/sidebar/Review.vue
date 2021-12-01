@@ -1,5 +1,5 @@
 <template>
-    <div class="h-auto md:w-[290px] rounded-[5px] p-[20px] bg-white flex flex-col space-y-4">
+    <div class="sidebar-card">
         <div class="flex items-center justify-between">
             <p class="font-semibold text-[14px]">Reviews</p>
             <button type="button" class="font-bold text-blue-1 text-[12px]">CLEAR</button>

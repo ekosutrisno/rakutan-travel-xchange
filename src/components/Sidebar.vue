@@ -49,7 +49,7 @@ import {
     dataMealPlan, 
     dataPropertyType, 
     dataFaclities 
-} from '../services/useFakeData';
+} from '../services/useFilterDataOptions';
 
 export default defineComponent({
   components: { 

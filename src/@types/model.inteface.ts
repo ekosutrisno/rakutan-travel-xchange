@@ -27,7 +27,7 @@ export interface Outlet {
     nights:        number;
     roomCount:     number;
     targetCcy:     string;
-    availability:   Availability;
+    availability:  Availability;
 }
 
 export interface Availability {
@@ -35,7 +35,7 @@ export interface Availability {
     status:         string;
     eventId:        string;
     search:         Search;
-    results:         Result[];
+    results:        Result[];
     pagination?:    Pagination;
 }
 
@@ -67,9 +67,9 @@ export interface Package {
     unitMarketRates:       any[];
     score:                 number;
     skip:                  boolean;
-    finalAdjustmentAmount: null;
+    finalAdjustmentAmount: null | any;
     finalAdjustments:      any[];
-    totalAmount:           null;
+    totalAmount:           null | any;
     rakutenPoint:          number;
     payAtHotel:            boolean;
     payLater:              boolean;
@@ -88,7 +88,7 @@ export interface Property{
     contacts:       Contact;
     airportCode:    string;
     heroImage:      any;
-    gallery:        any[];
+    gallery:        ImageGalery[];
     categoryId:     number;
     facilities:     number[];
     reviews:        Review
@@ -107,7 +107,7 @@ export interface Search {
     currency:       string;
     locale:         string;
     source_market:  string;
-    children:       null;
+    children:       null | any;
 }
 
 export interface Pagination {
@@ -122,7 +122,7 @@ export interface Location {
     country:       string;
     countryCode:   string;
     postalCode:    string;
-    stateProvince: null;
+    stateProvince: null | any;
     latLng:        LatLng;
 }
 
@@ -157,6 +157,7 @@ export interface Summary {
     scoreDescription:    string;
     summarySentenceList: any[];
     text:                string;
+    covidSavety:         null | any;
 }
 
 export interface HighlightList {
@@ -196,8 +197,6 @@ export interface ErrorResponse {
     resolveActions: any;
 }
 
-
-// Extend
 export interface FilterData {
     value:  boolean;
     text:   string;
@@ -207,4 +206,17 @@ export interface FilterData {
 export interface City {
     label:    string;
     cityCode: string;
+}
+
+export interface Image {
+    caption: string;
+    url:     string;
+}
+
+export interface ImageGalery {
+    s?:      Image;
+    m?:      Image;
+    xs?:     Image;
+    l?:      Image;
+    xl?:     Image;
 }

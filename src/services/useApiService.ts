@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { City, DataResponse, ErrorResponse, Result } from '../@types/model.inteface';
-import exampleData from '../assets/example.json';
 
 interface ApiServiceState {
     dataResponse: DataResponse | null;
@@ -12,7 +11,6 @@ interface ApiServiceState {
 export const useApiService = defineStore('useApiService', {
     state: (): ApiServiceState => ({
         dataResponse: null,
-        // dataResponse: exampleData as DataResponse,
         errorResponse: null,
         autoSuggest: [],
         loading: false
@@ -47,7 +45,10 @@ export const useApiService = defineStore('useApiService', {
                     this.loading = false
                 );
         },
-
+        
+        /**
+         * Will fetch autosuggest API
+         */
         getAutoSuggest() {
             fetch(`api/job01/autosuggest`)
                 .then(res => res.json())

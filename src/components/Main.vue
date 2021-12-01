@@ -67,7 +67,8 @@ import PropertyCard from './main/PropertyCard.vue';
 import PropertyCardPlaceholder from './main/PropertyCardPlaceholder.vue';
 
 export default defineComponent({
-  components: { FilterButton, PropertyCard, PaginationBar, PropertyCardPlaceholder },
+    components: { FilterButton, PropertyCard, PaginationBar, PropertyCardPlaceholder },
+
     setup () {
         const apiService = useApiService();
         const state = reactive({

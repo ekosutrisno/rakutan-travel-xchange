@@ -74,14 +74,14 @@
 </template>
 
 <script lang="ts">
+import { computed, defineComponent, reactive, ref, toRefs } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-import { computed, defineComponent, reactive, ref, toRefs } from 'vue'
 import { City } from '../@types/model.inteface';
 import { useApiService } from '../services';
 
 export default defineComponent({
     emits:['close'],
-    setup (_, {emit}) {
+    setup (_, { emit }) {
         const apiService = useApiService();
         const state = reactive({
             autoSuggest: computed(()=> apiService.autoSuggest),

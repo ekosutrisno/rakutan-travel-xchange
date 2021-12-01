@@ -130,7 +130,6 @@ export default defineComponent({
         })
 
         const target = ref(null)
-
         onClickOutside(target, () => { state.showSuggested = false})
 
         const onSearchAction = ()=> {

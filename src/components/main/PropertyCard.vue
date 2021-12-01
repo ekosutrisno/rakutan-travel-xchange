@@ -1,5 +1,5 @@
 <template>
- <div class="p-[10px] h-[230px] rounded-[5px] flex gap-2 bg-white hover:shadow-md transition-shadow">
+<div class="card-property">
     <div class="w-[200px] flex-none flex-shrink-0">
         <div class="flex flex-col w-[200px] h-[160px] overflow-hidden">
             <img :src="result.property.heroImage.url" alt="hero-image" class="object-cover h-full w-full">
@@ -11,9 +11,9 @@
                 class="h-[48px] w-full overflow-hidden"
             >
                 <img 
-                    v-if="img.s != undefined" 
-                    :src="img.s.url" 
-                    :alt="`${img.s.caption}-${idx}`"
+                    v-if="imageSizeChecker(img) != undefined" 
+                    :src="imageSizeChecker(img)?.url" 
+                    :alt="`${imageSizeChecker(img)?.caption}-${idx}`"
                     class="h-full w-full object-cover hover:scale-150 transition-transform"
                 >
             </div>
@@ -25,7 +25,7 @@
                 <h3 class="font-bold inline-flex items-center">
                     <span class="mr-[5px]">{{result.property.name}}</span>
                     <span v-for="star in Math.floor(result.property.starRating)" :key="star">
-                         <svg width="12" height="12" aria-hidden="true" class="hover:scale-125 transition-transform" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="12" height="12" aria-hidden="true" class="hover:scale-125 transition-transform" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M7.5 0L9.18386 5.18237H14.6329L10.2245 8.38525L11.9084 13.5676L7.5 10.3647L3.09161 13.5676L4.77547 8.38525L0.367076 5.18237H5.81614L7.5 0Z" fill="#E9BF2D"/>
                         </svg>  
                     </span>
@@ -40,21 +40,21 @@
                         }"`
                     }} 
                 </p>
-                <div class="inline-flex items-center w-full space-x-[5px] mt-[11px] mb-[13px]">
-                    <p class="w-auto py-0 px-[5px] h-[20px] text-[12px] border border-blue-2 text-blue-2">
-                        Breakfast
+                <div class="card-property-label-wrapper">
+                    <p class="card-property-label">
+                        {{ foodCodemapping(result.packages[0].foodCode) }}
                     </p>
-                    <p v-if="result.packages[0].nonRefundable" class="w-auto py-0 px-[5px] h-[20px] text-[12px] border border-blue-2 text-blue-2">
+                    <p v-if="result.packages[0].nonRefundable" class="card-property-label">
                         Free cancellation
                     </p>
-                    <p v-if="result.packages[0].payAtHotel" class="w-auto py-0 px-[5px] h-[20px] text-[12px] border border-blue-2 text-blue-2">
+                    <p v-if="result.packages[0].payAtHotel" class="card-property-label">
                         Pay at hotel
                     </p>
-                    <p v-if="result.packages[0].payLater" class="w-auto py-0 px-[5px] h-[20px] text-[12px] border border-blue-2 text-blue-2">
+                    <p v-if="result.packages[0].payLater" class="card-property-label">
                         Pay later
                     </p>
                 </div>
-                <div class="inline-flex items-center space-x-[11px] text-[12px]">
+                <div v-if="result.property.reviews != undefined ? result.property.reviews.summary.covidSavety : null" class="inline-flex items-center space-x-[11px] text-[12px]">
                     <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.50012 11H4.00012V8H6.50012V5.5H9.50012V8H12.0001V11H9.50012V13.5H6.50012V11ZM8.00012 0L0.00012207 3V9.09C0.00012207 14.14 3.41012 18.85 8.00012 20C12.5901 18.85 16.0001 14.14 16.0001 9.09V3L8.00012 0Z" fill="#002D63"/>
                     </svg>
@@ -90,7 +90,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { Package, Result } from '../../@types/model.inteface'
+import { Result } from '../../@types/model.inteface'
+import {isDiscount, 
+        foodCodemapping, 
+        imageSizeChecker,
+        calculateDicountPercent 
+} from '../../helpers/helperFunction';
 
 export default defineComponent({
     props:{
@@ -100,16 +105,10 @@ export default defineComponent({
         }
     },
     setup () {
-
-        const isDiscount = (displayRate: Package['displayRate'], adjustedDisplayRate: Package['adjustedDisplayRate']) => {
-            return displayRate.value > adjustedDisplayRate.value
-        }
-        const calculateDicountPercent = (displayRate: number, adjustedDisplayRate: number)=>{
-            return ((displayRate - adjustedDisplayRate)/displayRate) * 100;
-        }
-
         return {
             isDiscount,
+            foodCodemapping,
+            imageSizeChecker,
             calculateDicountPercent
         }
     }

@@ -1,11 +1,34 @@
-# Vue 3 + Typescript + Vite
+# Rakutan Travel Xchange
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This project is an assignment as test material.
+@author: Eko Sutrisno [Github](https://github.com/ekosutrisno) | [Website](https://ekosutrisno.netlify.app/)
 
-## Recommended IDE Setup
+- Tech Stack
+  - Typescript
+  - Vite v2.6.4
+  - Vue v3.2.16
+  - TailwindCss v2.2.19 with Just In Time (JIT) Mode
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+- Script
 
-## Type Support For `.vue` Imports in TS
+  - Install
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+    ```shell
+      npm run install
+    ```
+
+  - Run (Vue + Vite)
+
+    ```shell
+      npm run dev
+    ```
+
+  - Build
+
+    ```shell
+      npm run build
+    ```
+
+    output folder in `/dist`
+
+Note: Color variable can be found in `tailwind.config.js` and Dev CORS handling also can be found in `vite.config.ts`

@@ -63,7 +63,7 @@
     </div>
     <div class="h-[60px] z-50 p-[18px] fixed bottom-0 w-full bg-white grid grid-cols-2 content-center gap-[20px] border-t border-line">
         <button type="button" @click="onClose" class="py-2 text-center rounded-[3px] text-[14px] font-bold border-2 border-blue-1">Clear</button>
-        <button type="button" class="py-2 text-center rounded-[3px] text-[14px] font-bold  text-white bg-blue-1">Filter</button>
+        <button type="button" @click="onFilter" class="py-2 text-center rounded-[3px] text-[14px] font-bold  text-white bg-blue-1">Filter</button>
     </div>
 </template>
 
@@ -84,7 +84,7 @@ import {
     dataMealPlan, 
     dataPropertyType, 
     dataFaclities 
-} from '../services/useFakeData';
+} from '../services/useFilterDataOptions';
 
 export default defineComponent({
     components: { PricePerNight, Review, StarRating, HotelSearchBar, ReservationPolicy, MealPlan, PropertyType, Facility },
@@ -103,9 +103,15 @@ export default defineComponent({
             emit('close');
         }
 
+        const onFilter = ()=>{
+            onClose();
+            console.log("On Filter Action Fire");
+        }
+
         return {
             ...toRefs(state),
-            onClose
+            onClose,
+            onFilter
         }
     }
 })

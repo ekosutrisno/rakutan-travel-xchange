@@ -6,14 +6,14 @@
       <SearchBar/>
       
       <!-- Md+ view -->
-      <div class="hidden md:grid grid-cols-12 max-w-7xl mx-auto p-[15px]">
+      <div v-if="smAndLarger" class="grid grid-cols-12 max-w-7xl mx-auto p-[15px]">
           <Sidebar/>
           <Main/>
       </div>
     </div>
 
     <!-- Sm/mobile view -->
-    <div class="h-full flex-1 flex flex-col md:hidden">
+    <div v-if="extraSmall" class="h-full flex-1 flex flex-col md:hidden">
         <MainMobileView />
        <div class="flex-none flex-shrink-0">
         <Footer/>
@@ -29,6 +29,7 @@
 
 <script lang="ts">
 import { computed, defineComponent,onMounted,reactive, toRefs } from "vue";
+import { useBreakpoints, breakpointsTailwind } from '@vueuse/core';
 import { useApiService } from "./services";
 import Header from "./components/Header.vue";
 import SearchBar from "./components/SearchBar.vue";
@@ -41,6 +42,7 @@ export default defineComponent({
   components: { Header, SearchBar, Sidebar, Main, Footer, MainMobileView},
   setup() {
     const apiService = useApiService();
+    const breakpoints = useBreakpoints(breakpointsTailwind);
 
     const state = reactive({
       results: computed(()=> apiService.getResult)
@@ -52,8 +54,13 @@ export default defineComponent({
       apiService.getAutoSuggest();
     })
 
+    const smAndLarger = breakpoints.greater('sm');
+    const extraSmall = breakpoints.smaller('sm');
+
     return{
-      ...toRefs(state)
+      ...toRefs(state),
+      extraSmall,
+      smAndLarger
     }
   },
 });
